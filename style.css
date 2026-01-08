@@ -1,0 +1,55 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1, h2 {
+    margin: 20px 0;
+}
+
+a.button {
+    display: inline-block;
+    background-color: #6c63ff;
+    color: white;
+    padding: 12px 24px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+a.button:hover {
+    background-color: #5548c8;
+    transform: scale(1.05);
+}
+
+.game-card {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 12px;
+    margin: 20px;
+    padding: 20px;
+    width: 220px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.game-card img {
+    width: 200px;
+    height: auto;
+    border-radius: 12px;
+}
+
+.download-links {
+    margin-top: 10px;
+}
+
+.download-links a {
+    display: block;
+    margin: 5px 0;
+}
