@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SGM / Socials</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-light: #ffffff;
+    --bg-dark: #121212;
+    --text-light: #121212;
+    --text-dark: #ffffff;
+    --accent: #4cafef;
+}
+html[data-theme="light"] { background: var(--bg-light); color: var(--text-light); }
+html[data-theme="dark"] { background: var(--bg-dark); color: var(--text-dark); }
+body { font-family: 'Roboto', sans-serif; margin:0; padding:0; display:flex; flex-direction:column; min-height:100vh;}
+header { display:flex; justify-content:space-between; align-items:center; padding:10px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.header-left { font-weight:700; font-size:1.5rem;}
+.header-left span { font-weight:400; color:var(--accent);}
+.header-center { flex:1; display:flex; justify-content:center;}
+.theme-btn { cursor:pointer; padding:8px 16px; border-radius:8px; background:var(--accent); color:#fff; font-weight:700; user-select:none; transition:0.3s;}
+.theme-btn:hover { transform:scale(1.1);}
+.header-right { display:flex; gap:8px;}
+.header-right img { width:32px; height:32px; cursor:pointer; border-radius:50%; transition:0.2s; }
+.header-right img:hover { transform:scale(1.1);}
+main { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:20px; }
+h1 { font-size:2rem; margin-bottom:30px; text-align:center;}
+h2.section-title { margin-top:30px; margin-bottom:15px; font-size:1.5rem; text-align:center; color:var(--accent);}
+.socials-container { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+.social-card { background:var(--accent); color:#fff; border-radius:15px; padding:15px; width:200px; text-align:center; transition:0.3s; display:flex; flex-direction:column; align-items:center; cursor:pointer; text-decoration:none;}
+.social-card:hover { transform:scale(1.05);}
+.social-card img { width:80px; height:80px; border-radius:12px; margin-bottom:10px; user-select:none; pointer-events:none; }
+.social-card span { font-weight:700; }
+.back-btn { margin-top:30px; text-decoration:none; padding:12px 24px; border-radius:10px; background:var(--accent); color:#fff; font-weight:700; transition:0.3s;}
+.back-btn:hover { transform:scale(1.05);}
+@media(max-width:600px){
+    h1{font-size:1.5rem;}
+    h2.section-title{font-size:1.2rem;}
+    .header-left{font-size:1.2rem;}
+    .header-right img{width:24px;height:24px;}
+    .theme-btn{padding:6px 12px;}
+    .social-card{width:150px;}
+    .social-card img{width:60px;height:60px;}
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="header-left">SGM<span id="path">/socials</span></div>
+    <div class="header-center">
+        <div class="theme-btn">⬜️</div>
+    </div>
+    <div class="header-right">
+        <img src="assets/en.png" data-lang="en">
+        <img src="assets/ru.png" data-lang="ru">
+        <img src="assets/de.png" data-lang="de">
+        <img src="assets/es.png" data-lang="es">
+        <img src="assets/pt.png" data-lang="pt">
+        <img src="assets/fr.png" data-lang="fr">
+        <img src="assets/it.png" data-lang="it">
+        <img src="assets/jp.png" data-lang="jp">
+        <img src="assets/kr.png" data-lang="kr">
+        <img src="assets/cn.png" data-lang="cn">
+        <img src="assets/ar.png" data-lang="ar">
+        <img src="assets/hi.png" data-lang="hi">
+    </div>
+</header>
+<main>
+    <h1 data-text data-en="My Socials" data-ru="Мои соцсети">My Socials</h1>
+    
+    <h2 class="section-title" data-text data-en="For Russians" data-ru="Для русских">For Russians</h2>
+    <div class="socials-container">
+        <a class="social-card" href="https://t.me/gm2go" target="_blank">
+            <img src="assets/gm2go.png" alt="Telegram для русских">
+            <span data-text data-en="Local Telegram" data-ru="Локальный Telegram">Local Telegram</span>
+        </a>
+        <a class="social-card" href="https://youtube.com/@gameworld2bs" target="_blank">
+            <img src="assets/gmYT.png" alt="Gaming YT">
+            <span data-text data-en="Gaming YT" data-ru="Gaming YT">Gaming YT</span>
+        </a>
+        <a class="social-card" href="https://www.twitch.tv/gm2gg" target="_blank">
+            <img src="assets/gmTW.png" alt="Gaming Twitch">
+            <span data-text data-en="Gaming Twitch" data-ru="Gaming Twitch">Gaming Twitch</span>
+        </a>
+    </div>
+
+    <h2 class="section-title" data-text data-en="For All" data-ru="Для всех">For All</h2>
+    <div class="socials-container">
+        <a class="social-card" href="https://t.me/sgm_I" target="_blank">
+            <img src="assets/I_sgm.png" alt="Global Telegram">
+            <span data-text data-en="Global Telegram" data-ru="Глобальный Telegram">Global Telegram</span>
+        </a>
+        <a class="social-card" href="https://youtube.com/@sgm_I" target="_blank">
+            <img src="assets/yt.png" alt="Official YouTube">
+            <span data-text data-en="Official YouTube" data-ru="Официальный YouTube">Official YouTube</span>
+        </a>
+    </div>
+
+    <a class="back-btn" href="index.html" data-text data-en="Back" data-ru="Назад">Back</a>
+</main>
+<script>
+const themeBtn = document.querySelector('.theme-btn');
+if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
+document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+themeBtn.textContent = localStorage.getItem('theme') === 'light' ? '⬜️' : '⬛️';
+themeBtn.addEventListener('click', ()=>{
+    let t=document.documentElement.getAttribute('data-theme');
+    let n=t==='light'?'dark':'light';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+    themeBtn.textContent=n==='light'?'⬜️':'⬛️';
+});
+
+const langBtns=document.querySelectorAll('.header-right img');
+if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
+langBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        localStorage.setItem('lang',btn.dataset.lang);
+        updateLang();
+    });
+});
+function updateLang(){
+    let l=localStorage.getItem('lang')||'en';
+    document.querySelectorAll('[data-text]').forEach(el=>{
+        if(el.dataset[l]) el.textContent=el.dataset[l];
+    });
+}
+updateLang();
+</script>
+</body>
+</html>
