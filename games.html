@@ -2,21 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Мои игры - S_GM</title>
+    <title>SGM / games</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Мои игры</h1>
-
-    <div class="game-card">
-        <img src="assets/bloody_frost.png" alt="Bloody Frost">
-        <h2>Bloody Frost</h2>
-        <div class="download-links">
-            <a class="button" href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.apk" download>Скачать Android</a>
-            <a class="button" href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.zip" download>Скачать Windows</a>
+    <header>
+        <div class="header-left">SGM<span id="path">/games</span></div>
+        <div class="header-center">
+            <div class="theme-btn">⬜️</div>
         </div>
-    </div>
-
-    <a class="button" href="index.html">← Назад</a>
+        <div class="header-right">
+            <div class="lang-btn" data-lang="ru"><img src="assets/ru.png"></div>
+            <div class="lang-btn" data-lang="en"><img src="assets/en.png"></div>
+            <div class="lang-btn" data-lang="es"><img src="assets/es.png"></div>
+            <div class="lang-btn" data-lang="fr"><img src="assets/fr.png"></div>
+            <div class="lang-btn" data-lang="jp"><img src="assets/jp.png"></div>
+            <div class="lang-btn" data-lang="de"><img src="assets/de.png"></div>
+            <div class="lang-btn" data-lang="kr"><img src="assets/kr.png"></div>
+            <div class="lang-btn" data-lang="it"><img src="assets/it.png"></div>
+            <div class="lang-btn" data-lang="cn"><img src="assets/cn.png"></div>
+            <div class="lang-btn" data-lang="pt"><img src="assets/pt.png"></div>
+            <div class="lang-btn" data-lang="ar"><img src="assets/ar.png"></div>
+            <div class="lang-btn" data-lang="hi"><img src="assets/hi.png"></div>
+        </div>
+    </header>
+    <main>
+        <h1 data-text data-en="My Games" data-ru="Мои игры">My Games</h1>
+        <div class="games-container">
+            <div class="game-card">
+                <img src="assets/bloody_frost.png" alt="Bloody Frost">
+                <h2 data-text data-en="Bloody Frost" data-ru="Bloody Frost">Bloody Frost</h2>
+                <a class="button" href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.apk" download data-text data-en="Download Android" data-ru="Скачать Android">Download Android</a>
+                <a class="button" href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.zip" download data-text data-en="Download Windows" data-ru="Скачать Windows">Download Windows</a>
+            </div>
+        </div>
+        <a class="button" href="index.html" data-text data-en="Back" data-ru="Назад">Back</a>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
