@@ -23,7 +23,8 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
         }
 
@@ -137,6 +138,13 @@
             border: none;
             overflow-x: auto;
             overflow-y: hidden;
+        }
+
+        #hud-container {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
     </style>
