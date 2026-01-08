@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SGM</title>
+<title>SGM / Games</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -25,16 +25,30 @@ header { display:flex; justify-content:space-between; align-items:center; paddin
 .header-right { display:flex; gap:8px;}
 .header-right img { width:32px; height:32px; cursor:pointer; border-radius:50%; transition:0.2s; }
 .header-right img:hover { transform:scale(1.1);}
-main { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; }
-h1 { font-size:2.5rem; margin-bottom:40px; text-align:center;}
-.button { display:inline-block; padding:12px 24px; margin:10px; border-radius:10px; background:var(--accent); color:#fff; font-weight:700; text-decoration:none; transition:0.3s;}
-.button:hover { transform:scale(1.05);}
-@media(max-width:600px){ h1{font-size:1.8rem;} .header-left{font-size:1.2rem;} .header-right img{width:24px;height:24px;} .theme-btn{padding:6px 12px;} }
+main { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:20px; }
+h1 { font-size:2rem; margin-bottom:30px; text-align:center;}
+.games-container { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+.game-card { background:var(--accent); color:#fff; border-radius:15px; padding:15px; width:250px; text-align:center; transition:0.3s; display:flex; flex-direction:column; align-items:center;}
+.game-card:hover { transform:scale(1.05);}
+.game-card img { width:150px; height:150px; border-radius:10px; margin-bottom:10px; user-select:none; pointer-events:auto; }
+.game-card h2 { margin:10px 0; }
+.game-card .button { margin:5px 0; display:block; text-decoration:none; color:#fff; background:#00000050; padding:8px 12px; border-radius:8px; transition:0.3s;}
+.game-card .button:hover { background:#00000080; transform:scale(1.05);}
+.back-btn { margin-top:30px; text-decoration:none; padding:12px 24px; border-radius:10px; background:var(--accent); color:#fff; font-weight:700; transition:0.3s;}
+.back-btn:hover { transform:scale(1.05);}
+@media(max-width:600px){
+    h1{font-size:1.5rem;}
+    .header-left{font-size:1.2rem;}
+    .header-right img{width:24px;height:24px;}
+    .theme-btn{padding:6px 12px;}
+    .game-card{width:200px;}
+    .game-card img{width:120px;height:120px;}
+}
 </style>
 </head>
 <body>
 <header>
-    <div class="header-left">SGM<span id="path">/</span></div>
+    <div class="header-left">SGM<span id="path">/games</span></div>
     <div class="header-center">
         <div class="theme-btn">⬜️</div>
     </div>
@@ -55,20 +69,6 @@ h1 { font-size:2.5rem; margin-bottom:40px; text-align:center;}
 </header>
 <main>
     <h1 data-text
-        data-en="Hello everyone"
-        data-ru="Привет всем"
-        data-es="Hola a todos"
-        data-fr="Bonjour à tous"
-        data-jp="皆さん、こんにちは"
-        data-de="Hallo zusammen"
-        data-kr="안녕하세요"
-        data-it="Ciao a tutti"
-        data-cn="大家好"
-        data-pt="Olá a todos"
-        data-ar="مرحبًا بالجميع"
-        data-hi="सभी को नमस्ते"
-    >Hello everyone</h1>
-    <a href="games.html" class="button" data-text
         data-en="My Games"
         data-ru="Мои игры"
         data-es="Mis juegos"
@@ -81,7 +81,74 @@ h1 { font-size:2.5rem; margin-bottom:40px; text-align:center;}
         data-pt="Meus jogos"
         data-ar="ألعابي"
         data-hi="मेरे गेम"
-    >My Games</a>
+    >My Games</h1>
+    <div class="games-container">
+        <div class="game-card">
+            <img src="assets/bloody_frost.png" alt="Bloody Frost" draggable="false">
+            <h2 data-text
+                data-en="Bloody Frost"
+                data-ru="Bloody Frost"
+                data-es="Bloody Frost"
+                data-fr="Bloody Frost"
+                data-jp="Bloody Frost"
+                data-de="Bloody Frost"
+                data-kr="Bloody Frost"
+                data-it="Bloody Frost"
+                data-cn="Bloody Frost"
+                data-pt="Bloody Frost"
+                data-ar="Bloody Frost"
+                data-hi="Bloody Frost"
+            >Bloody Frost</h2>
+            <a class="button"
+               href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.apk"
+               download
+               data-text
+               data-en="Download Android"
+               data-ru="Скачать Android"
+               data-es="Descargar Android"
+               data-fr="Télécharger Android"
+               data-jp="Androidをダウンロード"
+               data-de="Android herunterladen"
+               data-kr="Android 다운로드"
+               data-it="Scarica Android"
+               data-cn="下载 Android"
+               data-pt="Baixar Android"
+               data-ar="تحميل Android"
+               data-hi="Android डाउनलोड करें"
+            >Download Android</a>
+            <a class="button"
+               href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.zip"
+               download
+               data-text
+               data-en="Download Windows"
+               data-ru="Скачать Windows"
+               data-es="Descargar Windows"
+               data-fr="Télécharger Windows"
+               data-jp="Windowsをダウンロード"
+               data-de="Windows herunterladen"
+               data-kr="Windows 다운로드"
+               data-it="Scarica Windows"
+               data-cn="下载 Windows"
+               data-pt="Baixar Windows"
+               data-ar="تحميل Windows"
+               data-hi="Windows डाउनलोड करें"
+            >Download Windows</a>
+        </div>
+    </div>
+    <a class="back-btn" href="index.html" data-text
+       data-en="Back"
+       data-ru="Назад"
+       data-es="Volver"
+       data-fr="Retour"
+       data-jp="戻る"
+       data-de="Zurück"
+       data-kr="뒤로"
+       data-it="Indietro"
+       data-cn="返回"
+       data-pt="Voltar"
+       data-ar="رجوع"
+       data-hi="वापस"
+    >Back</a>
 </main>
 <script>
 const themeBtn = document.querySelector('.theme-btn');
