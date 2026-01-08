@@ -198,8 +198,7 @@
 </main>
 
 <script>
-    //hud
-    fetch('hud.html')
+fetch('hud.html')
   .then(res => res.text())
   .then(html => {
       document.getElementById('hud-container').innerHTML = html;
@@ -208,42 +207,10 @@
 
 function initHUD() {
     const themeBtn = document.querySelector('.theme-btn');
-    if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
-    themeBtn.textContent = localStorage.getItem('theme') === 'light' ? '⬜️' : '⬛️';
-    themeBtn.addEventListener('click', ()=>{
-        let t = document.documentElement.getAttribute('data-theme');
-        let n = t==='light'?'dark':'light';
-        document.documentElement.setAttribute('data-theme',n);
-        localStorage.setItem('theme', n);
-        themeBtn.textContent = n==='light'?'⬜️':'⬛️';
-    });
-
     const langBtns = document.querySelectorAll('.header-right img');
-    if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
-    langBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            localStorage.setItem('lang', btn.dataset.lang);
-            updateLang();
-        });
-    });
 
-    function updateLang() {
-        let l = localStorage.getItem('lang') || 'en';
-        document.querySelectorAll('[data-text]').forEach(el => {
-            if(el.dataset[l]) el.textContent = el.dataset[l];
-        });
-    }
-    updateLang();
-
-    const pathEl = document.querySelector('.header-left .path');
-    const path = location.pathname.split('/').pop().replace('.html','') || '';
-    pathEl.textContent = '/' + (path || '');
-}
-    //<hud
-    const themeBtn = document.querySelector('.theme-btn');
-
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
+    const savedTheme = localStorage.getItem('theme');
     document.documentElement.setAttribute('data-theme', savedTheme);
     themeBtn.textContent = savedTheme === 'light' ? '⬜️' : '⬛️';
 
@@ -255,17 +222,7 @@ function initHUD() {
         themeBtn.textContent = next === 'light' ? '⬜️' : '⬛️';
     });
 
-    const langBtns = document.querySelectorAll('[data-lang]');
-    const savedLang = localStorage.getItem('lang') || 'en';
-    localStorage.setItem('lang', savedLang);
-
-    function updateLang() {
-        const lang = localStorage.getItem('lang');
-        document.documentElement.lang = lang;
-        document.querySelectorAll('[data-text]').forEach(el => {
-            if (el.dataset[lang]) el.textContent = el.dataset[lang];
-        });
-    }
+    if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
 
     langBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -274,7 +231,20 @@ function initHUD() {
         });
     });
 
+    function updateLang() {
+        const lang = localStorage.getItem('lang') || 'en';
+        document.querySelectorAll('[data-text]').forEach(el => {
+            el.textContent = el.dataset[lang] || el.dataset.en;
+        });
+    }
+
     updateLang();
+
+    const pathEl = document.querySelector('.header-left .path');
+    let page = location.pathname.split('/').pop();
+    page = page === '' || page === 'index.html' ? '' : page.replace('.html','');
+    pathEl.textContent = '/' + page;
+}
 </script>
 
 </body>
