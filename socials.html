@@ -55,7 +55,7 @@ h2.section-title { margin-top:30px; margin-bottom:15px; font-size:1.5rem; text-a
 </style>
 </head>
 <body>
-<iframe src="hud.html" class="hud-frame"></iframe>
+<div id="hud-container"></div>
 <main>
     <h1 data-text 
         data-en="My Socials"
@@ -199,6 +199,49 @@ h2.section-title { margin-top:30px; margin-bottom:15px; font-size:1.5rem; text-a
 </main>
 
 <script>
+    //hud
+    fetch('hud.html')
+  .then(res => res.text())
+  .then(html => {
+      document.getElementById('hud-container').innerHTML = html;
+      initHUD();
+  });
+
+function initHUD() {
+    const themeBtn = document.querySelector('.theme-btn');
+    if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+    themeBtn.textContent = localStorage.getItem('theme') === 'light' ? '⬜️' : '⬛️';
+    themeBtn.addEventListener('click', ()=>{
+        let t = document.documentElement.getAttribute('data-theme');
+        let n = t==='light'?'dark':'light';
+        document.documentElement.setAttribute('data-theme',n);
+        localStorage.setItem('theme', n);
+        themeBtn.textContent = n==='light'?'⬜️':'⬛️';
+    });
+
+    const langBtns = document.querySelectorAll('.header-right img');
+    if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            localStorage.setItem('lang', btn.dataset.lang);
+            updateLang();
+        });
+    });
+
+    function updateLang() {
+        let l = localStorage.getItem('lang') || 'en';
+        document.querySelectorAll('[data-text]').forEach(el => {
+            if(el.dataset[l]) el.textContent = el.dataset[l];
+        });
+    }
+    updateLang();
+
+    const pathEl = document.querySelector('.header-left .path');
+    const path = location.pathname.split('/').pop().replace('.html','') || '';
+    pathEl.textContent = '/' + (path || '');
+}
+    //<hud
 const themeBtn = document.querySelector('.theme-btn');
 if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
 document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
