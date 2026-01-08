@@ -12,8 +12,6 @@
     --text-dark: #ffffff;
     --accent: #4cafef;
 }
-html[data-theme="light"] { background: var(--bg-light); color: var(--text-light); }
-html[data-theme="dark"] { background: var(--bg-dark); color: var(--text-dark); }
 body {
     margin:0;
     padding:0;
@@ -30,8 +28,8 @@ header {
     align-items:center;
     justify-content:space-between;
     width:100%;
-    padding:10px 20px;
     min-width:900px;
+    padding:10px 20px;
 }
 .header-left { font-weight:700; font-size:1.5rem; }
 .header-left span { font-weight:400; color:var(--accent); }
@@ -54,10 +52,8 @@ header {
 </head>
 <body>
 <header>
-    <div class="header-left">SGM<span class="path">/home</span></div>
-    <div class="header-center">
-        <div class="theme-btn">⬜️</div>
-    </div>
+    <div class="header-left">SGM<span class="path">/</span></div>
+    <div class="header-center"><div class="theme-btn">⬜️</div></div>
     <div class="header-right">
         <img src="assets/en.png" data-lang="en">
         <img src="assets/ru.png" data-lang="ru">
@@ -73,26 +69,5 @@ header {
         <img src="assets/hi.png" data-lang="hi">
     </div>
 </header>
-<script>
-const themeBtn = document.querySelector('.theme-btn');
-if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
-document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
-themeBtn.textContent = localStorage.getItem('theme') === 'light' ? '⬜️' : '⬛️';
-themeBtn.addEventListener('click', ()=>{
-    let t=document.documentElement.getAttribute('data-theme');
-    let n=t==='light'?'dark':'light';
-    document.documentElement.setAttribute('data-theme',n);
-    localStorage.setItem('theme',n);
-    themeBtn.textContent=n==='light'?'⬜️':'⬛️';
-});
-
-const langBtns=document.querySelectorAll('.header-right img');
-if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
-langBtns.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        localStorage.setItem('lang',btn.dataset.lang);
-    });
-});
-</script>
 </body>
 </html>
