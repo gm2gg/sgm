@@ -139,8 +139,7 @@ h1 { font-size:2rem; margin-bottom:30px; text-align:center;}
     >Back</a>
 </main>
 <script>
-    //hud
-    fetch('hud.html')
+fetch('hud.html')
   .then(res => res.text())
   .then(html => {
       document.getElementById('hud-container').innerHTML = html;
@@ -149,19 +148,23 @@ h1 { font-size:2rem; margin-bottom:30px; text-align:center;}
 
 function initHUD() {
     const themeBtn = document.querySelector('.theme-btn');
+    const langBtns = document.querySelectorAll('.header-right img');
+
     if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
-    themeBtn.textContent = localStorage.getItem('theme') === 'light' ? '⬜️' : '⬛️';
-    themeBtn.addEventListener('click', ()=>{
-        let t = document.documentElement.getAttribute('data-theme');
-        let n = t==='light'?'dark':'light';
-        document.documentElement.setAttribute('data-theme',n);
-        localStorage.setItem('theme', n);
-        themeBtn.textContent = n==='light'?'⬜️':'⬛️';
+    const savedTheme = localStorage.getItem('theme');
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeBtn.textContent = savedTheme === 'light' ? '⬜️' : '⬛️';
+
+    themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        themeBtn.textContent = next === 'light' ? '⬜️' : '⬛️';
     });
 
-    const langBtns = document.querySelectorAll('.header-right img');
     if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
+
     langBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             localStorage.setItem('lang', btn.dataset.lang);
@@ -170,45 +173,19 @@ function initHUD() {
     });
 
     function updateLang() {
-        let l = localStorage.getItem('lang') || 'en';
+        const lang = localStorage.getItem('lang') || 'en';
         document.querySelectorAll('[data-text]').forEach(el => {
-            if(el.dataset[l]) el.textContent = el.dataset[l];
+            el.textContent = el.dataset[lang] || el.dataset.en;
         });
     }
+
     updateLang();
 
     const pathEl = document.querySelector('.header-left .path');
-    const path = location.pathname.split('/').pop().replace('.html','') || '';
-    pathEl.textContent = '/' + (path || '');
+    let page = location.pathname.split('/').pop();
+    page = page === '' || page === 'index.html' ? '' : page.replace('.html','');
+    pathEl.textContent = '/' + page;
 }
-    //<hud
-const themeBtn = document.querySelector('.theme-btn');
-if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
-document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
-themeBtn.textContent = localStorage.getItem('theme') === 'light' ? '⬜️' : '⬛️';
-themeBtn.addEventListener('click', ()=>{
-    let t=document.documentElement.getAttribute('data-theme');
-    let n=t==='light'?'dark':'light';
-    document.documentElement.setAttribute('data-theme',n);
-    localStorage.setItem('theme',n);
-    themeBtn.textContent=n==='light'?'⬜️':'⬛️';
-});
-
-const langBtns=document.querySelectorAll('.header-right img');
-if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
-langBtns.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        localStorage.setItem('lang',btn.dataset.lang);
-        updateLang();
-    });
-});
-function updateLang(){
-    let l=localStorage.getItem('lang')||'en';
-    document.querySelectorAll('[data-text]').forEach(el=>{
-        if(el.dataset[l]) el.textContent=el.dataset[l];
-    });
-}
-updateLang();
 </script>
 </body>
 </html>
