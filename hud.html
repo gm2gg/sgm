@@ -25,26 +25,57 @@ header {
     width:100%;
     padding:10px 20px;
 }
-.header-left { font-weight:700; font-size:1.5rem; }
-.header-left .path { font-weight:400; color:#4cafef; margin-left:6px; }
-.header-center { flex:1; display:flex; justify-content:center; }
+.header-left {
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
 .theme-btn {
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
     cursor:pointer;
-    padding:8px 16px;
-    border-radius:999px;
     font-weight:700;
     user-select:none;
     transition:0.3s;
 }
-.header-right { display:flex; gap:8px; }
-.header-right img { width:32px; height:32px; cursor:pointer; border-radius:50%; transition:0.2s; }
+.header-left .sgm-text {
+    font-weight:700;
+    font-size:1.5rem;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+.header-left .sgm-text .path {
+    font-weight:400;
+    color:#4cafef;
+}
+.header-right {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-left:16px;
+}
+.header-right img {
+    width:32px;
+    height:32px;
+    cursor:pointer;
+    border-radius:50%;
+    transition:0.2s;
+}
 .header-right img:hover { transform:scale(1.1); }
+.header-center { flex:1; display:flex; justify-content:center; }
 </style>
 </head>
 <body>
 <header>
-    <div class="header-left">SGM<span class="path">/</span></div>
-    <div class="header-center"><div class="theme-btn">⬜️</div></div>
+    <div class="header-left">
+        <div class="theme-btn">⬜️</div>
+        <div class="sgm-text">SGM<span class="path">/</span></div>
+    </div>
     <div class="header-right">
         <img src="assets/en.png" data-lang="en">
         <img src="assets/ru.png" data-lang="ru">
