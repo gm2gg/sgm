@@ -9,6 +9,7 @@ themeBtn.addEventListener('click', () => {
     let newTheme = current === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
+    themeBtn.textContent = newTheme === 'light' ? '⬜️' : '⬛️';
 });
 
 langBtns.forEach(btn => {
@@ -28,3 +29,5 @@ function updateLanguage() {
 
 if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
 updateLanguage();
+
+themeBtn.textContent = localStorage.getItem('theme') === 'light' ? '⬜️' : '⬛️';
