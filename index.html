@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>SGM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
         * {
             box-sizing: border-box;
@@ -29,58 +28,78 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            font-family: sans-serif;
         }
 
-        header {
+        #hud-container {
+            width: 100%;
+            height: 60px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: inherit;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            margin-bottom: 8px;
+        }
+
+        .hud-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            backdrop-filter: blur(10px);
-            background: inherit;
-            z-index: 10;
+            min-width: 900px;
+            width: 100%;
+            padding: 10px 20px;
+            height: 100%;
         }
 
-        .header-left {
-            font-size: 20px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .header-left .path {
-            opacity: 0.5;
-            margin-left: 6px;
-            font-weight: 400;
-        }
-
-        .header-center {
-            flex: 1;
+        .hud-left {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            gap: 6px;
         }
 
         .theme-btn {
-            font-size: 22px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
             cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 999px;
+            font-weight: 700;
             user-select: none;
             transition: transform 0.2s;
+            font-size: 22px;
         }
 
         .theme-btn:hover {
             transform: scale(1.1);
         }
 
-        .header-right {
+        .hud-left .sgm-text {
+            font-weight: 700;
+            font-size: 1.4rem;
             display: flex;
-            gap: 6px;
+            align-items: center;
+            gap: 4px;
         }
 
-        .header-right img {
+        .hud-left .path {
+            font-weight: 400;
+            opacity: 0.5;
+        }
+
+        .hud-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 16px;
+        }
+
+        .hud-right img {
             width: 28px;
             height: 28px;
             cursor: pointer;
@@ -88,12 +107,18 @@
             transition: transform 0.2s;
         }
 
-        .header-right img:hover {
+        .hud-right img:hover {
             transform: scale(1.15);
         }
 
+        .hud-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
         main {
-            min-height: calc(100vh - 70px);
+            min-height: calc(100vh - 140px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -134,113 +159,226 @@
         html[data-theme="dark"] .button:hover {
             background: rgba(255,255,255,0.08);
         }
-        
-        .hud-frame {
-            width: 100%;
-            height: 70px;
+
+        .games-container,
+        .socials-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .game-card,
+        .social-card {
+            background: #4cafef;
+            color: #fff;
+            border-radius: 15px;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-card:hover,
+        .social-card:hover {
+            transform: scale(1.05);
+        }
+
+        .game-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            user-select: none;
+            pointer-events: auto;
+        }
+
+        .social-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .game-card h2,
+        .social-card span {
+            margin: 10px 0;
+            font-weight: 700;
+        }
+
+        .game-card .button {
+            margin: 5px 0;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            background: #00000050;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: 0.3s;
             border: none;
-            overflow-x: auto;
-            overflow-y: hidden;
+            font-size: 14px;
+            font-weight: 600;
         }
 
-        #hud-container {
+        .game-card .button:hover {
+            background: #00000080;
+            transform: scale(1.05);
+        }
+
+        .social-card {
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: #4cafef;
+            color: #fff;
+            font-weight: 700;
+            transition: transform 0.3s;
+            border: none;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        h2.section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #4cafef;
+        }
+
+        #content {
+            flex: 1;
             width: 100%;
-            height: 70px;
-            overflow-x: auto; 
-            overflow-y: hidden;
-            white-space: nowrap;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: inherit;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
-
     </style>
 </head>
-
 <body>
-
-<div id="hud-container"></div>
-
-<main>
-    <h1 data-text
-        data-en="Hello everyone"
-        data-ru="Привет всем"
-        data-es="Hola a todos"
-        data-fr="Bonjour à tous"
-        data-jp="皆さん、こんにちは"
-        data-de="Hallo zusammen"
-        data-kr="안녕하세요"
-        data-it="Ciao a tutti"
-        data-cn="大家好"
-        data-pt="Olá a todos"
-        data-ar="مرحبًا بالجميع"
-        data-hi="सभी को नमस्ते"
-    >Hello everyone</h1>
-
-    <div class="buttons">
-        <a class="button" href="games.html"
-           data-text
-           data-en="My Games"
-           data-ru="Мои игры"
-           data-es="Mis juegos"
-           data-fr="Mes jeux"
-           data-jp="マイゲーム"
-           data-de="Meine Spiele"
-           data-kr="내 게임"
-           data-it="I miei giochi"
-           data-cn="我的游戏"
-           data-pt="Meus jogos"
-           data-ar="ألعابي"
-           data-hi="मेरे गेम"
-        >My Games</a>
-
-        <a class="button" href="socials.html"
-           data-text
-           data-en="My Socials"
-           data-ru="Мои соцсети"
-           data-es="Mis redes"
-           data-fr="Mes réseaux"
-           data-jp="私のSNS"
-           data-de="Meine Netzwerke"
-           data-kr="내 소셜"
-           data-it="I miei social"
-           data-cn="我的社交"
-           data-pt="Minhas redes"
-           data-ar="وسائلي"
-           data-hi="मेरे सोशल"
-        >My Socials</a>
+<div id="hud-container">
+    <div class="hud-header">
+        <div class="hud-left">
+            <div class="theme-btn">⬜️</div>
+            <div class="sgm-text">SGM<span class="path">/</span></div>
+        </div>
+        <div class="hud-right">
+            <img src="assets/en.png" data-lang="en">
+            <img src="assets/ru.png" data-lang="ru">
+            <img src="assets/de.png" data-lang="de">
+            <img src="assets/es.png" data-lang="es">
+            <img src="assets/pt.png" data-lang="pt">
+            <img src="assets/fr.png" data-lang="fr">
+            <img src="assets/it.png" data-lang="it">
+            <img src="assets/jp.png" data-lang="jp">
+            <img src="assets/kr.png" data-lang="kr">
+            <img src="assets/cn.png" data-lang="cn">
+            <img src="assets/ar.png" data-lang="ar">
+            <img src="assets/hi.png" data-lang="hi">
+        </div>
     </div>
-</main>
+</div>
+
+<div id="content">
+    <main id="main-content">
+        <h1 data-text
+            data-en="Hello everyone"
+            data-ru="Привет всем"
+            data-es="Hola a todos"
+            data-fr="Bonjour à tous"
+            data-jp="皆さん、こんにちは"
+            data-de="Hallo zusammen"
+            data-kr="안녕하세요"
+            data-it="Ciao a tutti"
+            data-cn="大家好"
+            data-pt="Olá a todos"
+            data-ar="مرحبًا بالجميع"
+            data-hi="सभी को नमस्ते"
+        >Hello everyone</h1>
+
+        <div class="buttons">
+            <a class="button" href="#" onclick="showPage('games')"
+               data-text
+               data-en="My Games"
+               data-ru="Мои игры"
+               data-es="Mis juegos"
+               data-fr="Mes jeux"
+               data-jp="マイゲーム"
+               data-de="Meine Spiele"
+               data-kr="내 게임"
+               data-it="I miei giochi"
+               data-cn="我的游戏"
+               data-pt="Meus jogos"
+               data-ar="ألعابي"
+               data-hi="मेरे गेम"
+            >My Games</a>
+
+            <a class="button" href="#" onclick="showPage('socials')"
+               data-text
+               data-en="My Socials"
+               data-ru="Мои соцсети"
+               data-es="Mis redes"
+               data-fr="Mes réseaux"
+               data-jp="私のSNS"
+               data-de="Meine Netzwerke"
+               data-kr="내 소셜"
+               data-it="I miei social"
+               data-cn="我的社交"
+               data-pt="Minhas redes"
+               data-ar="وسائلي"
+               data-hi="मेरे सोशल"
+            >My Socials</a>
+
+            <a class="button" href="#" onclick="showPage('programs')"
+               data-text
+               data-en="My Programs"
+               data-ru="Мои программы"
+               data-es="Mis programas"
+               data-fr="Mes programmes"
+               data-jp="マイプログラム"
+               data-de="Meine Programme"
+               data-kr="내 프로그램"
+               data-it="I miei programmi"
+               data-cn="我的程序"
+               data-pt="Meus programas"
+               data-ar="برامجي"
+               data-hi="मेरे प्रोग्राम"
+            >My Programs</a>
+        </div>
+    </main>
+</div>
 
 <script>
-fetch('hud.html')
-  .then(res => res.text())
-  .then(html => {
-      document.getElementById('hud-container').innerHTML = html;
-      initHUD();
-  });
-
-function initHUD() {
-    const themeBtn = document.querySelector('.theme-btn');
-    const langBtns = document.querySelectorAll('.header-right img');
-
     if(!localStorage.getItem('theme')) localStorage.setItem('theme','light');
+    if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
+
     const savedTheme = localStorage.getItem('theme');
     document.documentElement.setAttribute('data-theme', savedTheme);
-    themeBtn.textContent = savedTheme === 'light' ? '⬜️' : '⬛️';
+    document.querySelector('.theme-btn').textContent = savedTheme === 'light' ? '⬜️' : '⬛️';
 
-    themeBtn.addEventListener('click', () => {
+    document.querySelector('.theme-btn').addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme');
         const next = current === 'light' ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
-        themeBtn.textContent = next === 'light' ? '⬜️' : '⬛️';
+        document.querySelector('.theme-btn').textContent = next === 'light' ? '⬜️' : '⬛️';
     });
 
-    if(!localStorage.getItem('lang')) localStorage.setItem('lang','en');
-
-    langBtns.forEach(btn => {
+    document.querySelectorAll('.hud-right img').forEach(btn => {
         btn.addEventListener('click', () => {
             localStorage.setItem('lang', btn.dataset.lang);
             updateLang();
@@ -254,14 +392,404 @@ function initHUD() {
         });
     }
 
+    function updatePath(page) {
+        const pathEl = document.querySelector('.hud-left .path');
+        pathEl.textContent = '/' + page;
+    }
+
+    function showPage(page) {
+        const mainContent = document.getElementById('main-content');
+        
+        if(page === 'home') {
+            mainContent.innerHTML = `
+                <h1 data-text
+                    data-en="Hello everyone"
+                    data-ru="Привет всем"
+                    data-es="Hola a todos"
+                    data-fr="Bonjour à tous"
+                    data-jp="皆さん、こんにちは"
+                    data-de="Hallo zusammen"
+                    data-kr="안녕하세요"
+                    data-it="Ciao a tutti"
+                    data-cn="大家好"
+                    data-pt="Olá a todos"
+                    data-ar="مرحبًا بالجميع"
+                    data-hi="सभी को नमस्ते"
+                >Hello everyone</h1>
+
+                <div class="buttons">
+                    <a class="button" href="#" onclick="showPage('games')"
+                       data-text
+                       data-en="My Games"
+                       data-ru="Мои игры"
+                       data-es="Mis juegos"
+                       data-fr="Mes jeux"
+                       data-jp="マイゲーム"
+                       data-de="Meine Spiele"
+                       data-kr="내 게임"
+                       data-it="I miei giochi"
+                       data-cn="我的游戏"
+                       data-pt="Meus jogos"
+                       data-ar="ألعابي"
+                       data-hi="मेरे गेम"
+                    >My Games</a>
+
+                    <a class="button" href="#" onclick="showPage('socials')"
+                       data-text
+                       data-en="My Socials"
+                       data-ru="Мои соцсети"
+                       data-es="Mis redes"
+                       data-fr="Mes réseaux"
+                       data-jp="私のSNS"
+                       data-de="Meine Netzwerke"
+                       data-kr="내 소셜"
+                       data-it="I miei social"
+                       data-cn="我的社交"
+                       data-pt="Minhas redes"
+                       data-ar="وسائلي"
+                       data-hi="मेरे सोशल"
+                    >My Socials</a>
+
+                    <a class="button" href="#" onclick="showPage('programs')"
+                       data-text
+                       data-en="My Programs"
+                       data-ru="Мои программы"
+                       data-es="Mis programas"
+                       data-fr="Mes programmes"
+                       data-jp="マイプログラム"
+                       data-de="Meine Programme"
+                       data-kr="내 프로그램"
+                       data-it="I miei programmi"
+                       data-cn="我的程序"
+                       data-pt="Meus programas"
+                       data-ar="برامجي"
+                       data-hi="मेरे प्रोग्राम"
+                    >My Programs</a>
+                </div>
+            `;
+            updatePath('');
+        }
+        
+        if(page === 'games') {
+            mainContent.innerHTML = `
+                <h1 data-text
+                    data-en="My Games"
+                    data-ru="Мои игры"
+                    data-es="Mis juegos"
+                    data-fr="Mes jeux"
+                    data-jp="マイゲーム"
+                    data-de="Meine Spiele"
+                    data-kr="내 게임"
+                    data-it="I miei giochi"
+                    data-cn="我的游戏"
+                    data-pt="Meus jogos"
+                    data-ar="ألعابي"
+                    data-hi="मेरे गेम"
+                >My Games</h1>
+                <div class="games-container">
+                    <div class="game-card">
+                        <img src="assets/bloody_frost.png" alt="Bloody Frost" draggable="false">
+                        <h2 data-text
+                            data-en="Bloody Frost"
+                            data-ru="Bloody Frost"
+                            data-es="Bloody Frost"
+                            data-fr="Bloody Frost"
+                            data-jp="Bloody Frost"
+                            data-de="Bloody Frost"
+                            data-kr="Bloody Frost"
+                            data-it="Bloody Frost"
+                            data-cn="Bloody Frost"
+                            data-pt="Bloody Frost"
+                            data-ar="Bloody Frost"
+                            data-hi="Bloody Frost"
+                        >Bloody Frost</h2>
+                        <a class="button"
+                           href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.apk"
+                           download
+                           data-text
+                           data-en="Download Android"
+                           data-ru="Скачать Android"
+                           data-es="Descargar Android"
+                           data-fr="Télécharger Android"
+                           data-jp="Androidをダウンロード"
+                           data-de="Android herunterladen"
+                           data-kr="Android 다운로드"
+                           data-it="Scarica Android"
+                           data-cn="下载 Android"
+                           data-pt="Baixar Android"
+                           data-ar="تحميل Android"
+                           data-hi="Android डाउनलोड करें"
+                        >Download Android</a>
+                        <a class="button"
+                           href="https://github.com/gm2gg/sgm/releases/download/Bloody_Frost/Bloody.Frost.1.0.zip"
+                           download
+                           data-text
+                           data-en="Download Windows"
+                           data-ru="Скачать Windows"
+                           data-es="Descargar Windows"
+                           data-fr="Télécharger Windows"
+                           data-jp="Windowsをダウンロード"
+                           data-de="Windows herunterladen"
+                           data-kr="Windows 다운로드"
+                           data-it="Scarica Windows"
+                           data-cn="下载 Windows"
+                           data-pt="Baixar Windows"
+                           data-ar="تحميل Windows"
+                           data-hi="Windows डाउनलोड करें"
+                        >Download Windows</a>
+                    </div>
+                </div>
+                <a class="back-btn" href="#" onclick="showPage('home')" data-text
+                   data-en="Back"
+                   data-ru="Назад"
+                   data-es="Volver"
+                   data-fr="Retour"
+                   data-jp="戻る"
+                   data-de="Zurück"
+                   data-kr="뒤로"
+                   data-it="Indietro"
+                   data-cn="返回"
+                   data-pt="Voltar"
+                   data-ar="رجوع"
+                   data-hi="वापस"
+                >Back</a>
+            `;
+            updatePath('games');
+        }
+
+        if(page === 'socials') {
+            mainContent.innerHTML = `
+                <h1 data-text 
+                    data-en="My Socials"
+                    data-ru="Мои соцсети"
+                    data-de="Meine sozialen Netzwerke"
+                    data-es="Mis redes sociales"
+                    data-fr="Mes réseaux sociaux"
+                    data-jp="私のSNS"
+                    data-kr="내 소셜"
+                    data-it="I miei social"
+                    data-cn="我的社交媒体"
+                    data-pt="Minhas redes sociais"
+                    data-ar="وسائلي الاجتماعية"
+                    data-hi="मेरे सोशल नेटवर्क">My Socials</h1>
+                
+                <h2 class="section-title" data-text
+                    data-en="For All"
+                    data-ru="Для всех"
+                    data-de="Für alle"
+                    data-es="Para todos"
+                    data-fr="Pour tous"
+                    data-jp="すべての人のため"
+                    data-kr="모두를 위해"
+                    data-it="Per tutti"
+                    data-cn="适用于所有人"
+                    data-pt="Para todos"
+                    data-ar="للجميع"
+                    data-hi="सभी के लिए">For All</h2>
+                <div class="socials-container">
+                    <a class="social-card" href="https://t.me/sgm_I" target="_blank">
+                        <img src="assets/I_sgm.png" alt="Global Telegram">
+                        <span data-text
+                              data-en="Global Telegram"
+                              data-ru="Глобальный Telegram"
+                              data-de="Globaler Telegram"
+                              data-es="Telegram Global"
+                              data-fr="Telegram mondial"
+                              data-jp="グローバルTelegram"
+                              data-kr="글로벌 텔레그램"
+                              data-it="Telegram globale"
+                              data-cn="全球电报"
+                              data-pt="Telegram global"
+                              data-ar="تليجرام العالمي"
+                              data-hi="ग्लोबल टेलीग्राम">Global Telegram</span>
+                    </a>
+                    <a class="social-card" href="https://youtube.com/@sgm_I" target="_blank">
+                        <img src="assets/yt.png" alt="Official YouTube">
+                        <span data-text
+                              data-en="Official YouTube"
+                              data-ru="Официальный YouTube"
+                              data-de="Offizieller YouTube"
+                              data-es="YouTube oficial"
+                              data-fr="YouTube officiel"
+                              data-jp="公式YouTube"
+                              data-kr="공식 YouTube"
+                              data-it="YouTube ufficiale"
+                              data-cn="官方YouTube"
+                              data-pt="YouTube oficial"
+                              data-ar="يوتيوب الرسمي"
+                              data-hi="आधिकारिक यूट्यूब">Official YouTube</span>
+                    </a>
+                </div>
+
+                <h2 class="section-title" data-text
+                    data-en="For Russians"
+                    data-ru="Для русских"
+                    data-de="Für Russen"
+                    data-es="Para rusos"
+                    data-fr="Pour les Russes"
+                    data-jp="ロシア人向け"
+                    data-kr="러시아인을 위해"
+                    data-it="Per i russi"
+                    data-cn="针对俄罗斯人"
+                    data-pt="Para russos"
+                    data-ar="للروس"
+                    data-hi="रूसी के लिए">For Russians</h2>
+                <div class="socials-container">
+                    <a class="social-card" href="https://t.me/gm2go" target="_blank">
+                        <img src="assets/gm2go.png" alt="Telegram для русских">
+                        <span data-text
+                              data-en="Local Telegram"
+                              data-ru="Локальный Telegram"
+                              data-de="Lokaler Telegram"
+                              data-es="Telegram local"
+                              data-fr="Telegram local"
+                              data-jp="ローカルTelegram"
+                              data-kr="로컬 텔레그램"
+                              data-it="Telegram locale"
+                              data-cn="本地电报"
+                              data-pt="Telegram local"
+                              data-ar="تلغرام المحلي"
+                              data-hi="स्थानीय टेलीग्राम">Local Telegram</span>
+                    </a>
+                    <a class="social-card" href="https://youtube.com/@gameworld2bs" target="_blank">
+                        <img src="assets/gmYT.png" alt="Gaming YT">
+                        <span data-text
+                              data-en="Gaming YT"
+                              data-ru="Gaming YT"
+                              data-de="Gaming YT"
+                              data-es="Gaming YT"
+                              data-fr="Gaming YT"
+                              data-jp="ゲームYT"
+                              data-kr="게임 YT"
+                              data-it="Gaming YT"
+                              data-cn="游戏YT"
+                              data-pt="Gaming YT"
+                              data-ar="Gaming YT"
+                              data-hi="गेमिंग YT">Gaming YT</span>
+                    </a>
+                    <a class="social-card" href="https://www.twitch.tv/gm2gg" target="_blank">
+                        <img src="assets/gmTW.png" alt="Gaming Twitch">
+                        <span data-text
+                              data-en="Gaming Twitch"
+                              data-ru="Gaming Twitch"
+                              data-de="Gaming Twitch"
+                              data-es="Gaming Twitch"
+                              data-fr="Gaming Twitch"
+                              data-jp="ゲームTwitch"
+                              data-kr="게임 트위치"
+                              data-it="Gaming Twitch"
+                              data-cn="游戏Twitch"
+                              data-pt="Gaming Twitch"
+                              data-ar="Gaming Twitch"
+                              data-hi="गेमिंग ट्विच">Gaming Twitch</span>
+                    </a>
+                </div>
+
+                <a class="back-btn" href="#" onclick="showPage('home')" data-text
+                   data-en="Back"
+                   data-ru="Назад"
+                   data-de="Zurück"
+                   data-es="Volver"
+                   data-fr="Retour"
+                   data-jp="戻る"
+                   data-kr="뒤로"
+                   data-it="Indietro"
+                   data-cn="返回"
+                   data-pt="Voltar"
+                   data-ar="عودة"
+                   data-hi="वापस">Back</a>
+            `;
+            updatePath('socials');
+        }
+
+        if(page === 'programs') {
+            mainContent.innerHTML = `
+                <h1 data-text
+                    data-en="My Programs"
+                    data-ru="Мои программы"
+                    data-es="Mis programas"
+                    data-fr="Mes programmes"
+                    data-jp="マイプログラム"
+                    data-de="Meine Programme"
+                    data-kr="내 프로그램"
+                    data-it="I miei programmi"
+                    data-cn="我的程序"
+                    data-pt="Meus programas"
+                    data-ar="برامجي"
+                    data-hi="मेरे प्रोग्राम"
+                >My Programs</h1>
+                
+                <div class="games-container">
+                    <div class="game-card">
+                        <img src="assets/dolister.png" alt="Do-lister" draggable="false">
+                        <h2 data-text
+                            data-en="Do-lister"
+                            data-ru="Do-lister"
+                            data-es="Do-lister"
+                            data-fr="Do-lister"
+                            data-jp="Do-lister"
+                            data-de="Do-lister"
+                            data-kr="Do-lister"
+                            data-it="Do-lister"
+                            data-cn="Do-lister"
+                            data-pt="Do-lister"
+                            data-ar="Do-lister"
+                            data-hi="Do-lister"
+                        >Do-lister</h2>
+                        <p style="margin: 10px 0; font-size: 14px;" data-text
+                           data-en="Telegram task manager"
+                           data-ru="Телеграм задачник"
+                           data-es="Gestor de tareas de Telegram"
+                           data-fr="Gestionnaire de tâches Telegram"
+                           data-jp="Telegramタスクマネージャー"
+                           data-de="Telegram Aufgabenmanager"
+                           data-kr="텔레그램 작업 관리자"
+                           data-it="Gestore di attività Telegram"
+                           data-cn="Telegram任务管理器"
+                           data-pt="Gerenciador de tarefas do Telegram"
+                           data-ar="مدير مهام تلغرام"
+                           data-hi="टेलीग्राम कार्य प्रबंधक"
+                        >Telegram task manager</p>
+                        <a class="button" href="https://t.me/gm2go" target="_blank"
+                           data-text
+                           data-en="Open in Telegram"
+                           data-ru="Открыть в Telegram"
+                           data-es="Abrir en Telegram"
+                           data-fr="Ouvrir dans Telegram"
+                           data-jp="Telegramで開く"
+                           data-de="In Telegram öffnen"
+                           data-kr="텔레그램에서 열기"
+                           data-it="Apri in Telegram"
+                           data-cn="在Telegram中打开"
+                           data-pt="Abrir no Telegram"
+                           data-ar="فتح في تلغرام"
+                           data-hi="Telegram में खोलें"
+                        >Open in Telegram</a>
+                    </div>
+                </div>
+                <a class="back-btn" href="#" onclick="showPage('home')" data-text
+                   data-en="Back"
+                   data-ru="Назад"
+                   data-es="Volver"
+                   data-fr="Retour"
+                   data-jp="戻る"
+                   data-de="Zurück"
+                   data-kr="뒤로"
+                   data-it="Indietro"
+                   data-cn="返回"
+                   data-pt="Voltar"
+                   data-ar="رجوع"
+                   data-hi="वापस"
+                >Back</a>
+            `;
+            updatePath('programs');
+        }
+
+        updateLang();
+    }
+
     updateLang();
-
-    const pathEl = document.querySelector('.header-left .path');
-    let page = location.pathname.split('/').pop();
-    page = page === '' || page === 'index.html' ? '' : page.replace('.html','');
-    pathEl.textContent = '/' + page;
-}
+    updatePath('');
 </script>
-
 </body>
 </html>
