@@ -1,2 +1,2 @@
 # sgm
-main site
+main site. https://gm2gg.github.io/sgm/
